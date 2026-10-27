@@ -7,8 +7,8 @@ BTC, ETH and SOL, 2026-10-14 to 2026-10-20 (UTC).
   (exchanges) and Hyperliquid, Jupiter, GMX, dYdX (on-chain perpetuals). Each row says
   whether the venue publishes every liquidation or only a sample.
 - **Point-in-time liquidation maps**: the first map of every UTC hour, every price bin,
-  with the measured layer (read from on-chain positions) and the modeled layer (inferred
-  from open interest) kept apart, and the model version on every row.
+  with the sampled layer (the on-chain positions of the accounts we read) and the modeled
+  layer (inferred from open interest) kept apart, and the model version on every row.
 
 The week includes 2026-10-15, when $444M of BTC, ETH and SOL liquidations were recorded
 on these venues, $105M of it in the minute starting 02:28 UTC.
@@ -53,8 +53,9 @@ GROUP BY ALL ORDER BY minute_utc, usd DESC;
   by 0.5% or more, long liquidations were 91 to 100% of each venue's USD; in the hours
   when it rose by 0.5% or more, 0 to 7%.
 - **A model change inside the sample.** Between the 13:00 and 14:00 UTC maps of
-  2026-10-19, the weight of the measured layer in the blend was corrected:
-  `exact_fraction` for BTC went from 0.1317 to 0.0707 with open interest unchanged.
+  2026-10-19, the weight of the sampled layer in the blend changed: from 13:27 UTC
+  Hyperliquid's open interest is counted at one side. `exact_fraction` for BTC went from
+  0.1317 to 0.0707 with open interest unchanged.
   The model version id is the same on both sides, so the change is marked only in the
   data dictionary.
 - **Point in time.** Each map is stamped with `as_of` (the time it describes) and
